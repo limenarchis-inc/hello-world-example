@@ -1,0 +1,32 @@
+meta:
+  name: some-other-onboarding-api
+  namespace: onboarding
+  environment: development
+
+image:
+  repo: 096568562421.dkr.ecr.us-east-1.amazonaws.com/hello-world-example
+  tag: "latest"
+
+deployment:
+  containerPort: 8080
+  env:
+  - name: CHAIN_URLS
+    value: "http://a-third-onboarding-api-example-development.onboarding:8080/external/call,http://onboarding-example-api-development.onboarding:8080/error"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+  readinessProbe:
+    path: /hello
+  livenessProbe:
+    path: /hello
+
+service:
+  port: 8080
+
+istio:
+  enabled: true
+  proxyMemory: 32Mi
+  proxyMemoryLimit: 64Mi
+  proxyCPU: 50m
+  proxyCPULimit: 50m

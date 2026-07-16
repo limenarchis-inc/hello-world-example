@@ -1,0 +1,34 @@
+meta:
+  name: onboarding-example-api-loadgen
+  namespace: onboarding
+  environment: development
+
+image:
+  repo: 096568562421.dkr.ecr.us-east-1.amazonaws.com/hello-world-example
+  tag: "latest"
+
+deployment:
+  containerPort: 8080
+  env:
+  - name: APP_MODE
+    value: "loadgen"
+  - name: LOADGEN_BASE_URL
+    value: "http://onboarding-example-api-development.onboarding:8080"
+  resources:
+    requests:
+      cpu: 50m
+      memory: 32Mi
+  readinessProbe:
+    path: /hello
+  livenessProbe:
+    path: /hello
+
+service:
+  port: 8080
+
+istio:
+  enabled: true
+  proxyMemory: 32Mi
+  proxyMemoryLimit: 64Mi
+  proxyCPU: 50m
+  proxyCPULimit: 50m

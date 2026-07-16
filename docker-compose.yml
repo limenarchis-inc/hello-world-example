@@ -1,0 +1,18 @@
+services:
+  app:
+    image: hello-world-example:latest
+    environment:
+      PORT: "8080"
+      CHAIN_URLS: "http://app:8080/hello,http://app:8080/hello/42/world"
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+
+  loadgen:
+    image: hello-world-example:latest
+    environment:
+      APP_MODE: "loadgen"
+      LOADGEN_BASE_URL: "http://app:8080"
+    ports:
+      - "8081:8080"
+    depends_on:
+      - app
