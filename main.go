@@ -254,6 +254,7 @@ func (s *server) handleHelloMultiPath(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) handleError(w http.ResponseWriter, r *http.Request) {
 	if s.randomIntn(10) == 0 {
+		slog.Error("failed to handle request", "error", "simulated internal server error")
 		writeError(w, http.StatusInternalServerError, "simulated internal server error")
 		return
 	}
