@@ -464,6 +464,7 @@ func requestLogger(next http.Handler) http.Handler {
 			"path", r.URL.Path,
 			"status", recorder.status,
 			"duration_ms", time.Since(start).Milliseconds(),
+			"some_custom_metric", time.Since(start).Milliseconds(),
 		)
 	})
 }
